@@ -6,7 +6,6 @@ export const fetchAllBooks = async (req, res) =>{
 }
 
 export const createBook = async (req, res) =>{
-    console.log(req);
     const {name, author} = req.body;
     const book = {name, author};
 
@@ -19,7 +18,7 @@ export const createBook = async (req, res) =>{
     }catch(e){
         console.log(e);
         res.status(500).json({
-            error: "Internal Server Error"
+            error: `${e.message || "Intenal Server Error"}`
         });
     }
 }

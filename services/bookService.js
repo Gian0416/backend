@@ -5,7 +5,26 @@ export const fetchAllBooks = async() =>{
     return books;
 }
 
+const doesBookExist = async(book) =>{
+    const existing = await bookModel.findBookByNameAndAuthor(book.name, book.author);
+    if (existing.length > 0){
+        return true;
+    }
+
+    return false;
+}
+
 export const createBook = async(book) =>{
+    if(!book.name || !book.author){
+        throw new Error('Name and author is required!');
+    }
+
+    const existing = await doesBookExist(book);
+
+    if(existing){
+        throw new Error('Book already exist!')
+    }
+    
     const bookId = await bookModel.insert(book);
     return bookId;
 }

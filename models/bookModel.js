@@ -5,6 +5,13 @@ export const fetch = async () => {
     return rows;
 }
 
+export const findBookByNameAndAuthor = async (name, author) =>{
+  const [rows] = await pool.query("SELECT * FROM book WHERE name = ? AND author = ?",
+    [name, author]
+  );
+    return rows;
+}
+
 export const insert = async(book) =>{
     const [result] = await pool.query(
         "INSERT INTO book(name, author) VALUES (?,?)",
@@ -29,4 +36,4 @@ export const remove = async (id) => {
     "DELETE FROM book WHERE id= ?", [id]
   );
   return result.affectedRows
-}
+} 
