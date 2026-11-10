@@ -1,8 +1,16 @@
 import express from "express";
 import bookRoutes from './routes/bookRoute.js';
 import studentRoutes from './routes/studentRoute.js';
+import cors from 'cors';
+
+let corsOptions = {
+    origin: 'http://localhost:5173'
+};
 
 const app = express();
+
+app.use(cors(corsOptions));
+
 app.use(express.json());
 
 app.use('/book', bookRoutes);
